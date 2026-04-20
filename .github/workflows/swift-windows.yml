@@ -6,7 +6,7 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        swift: ["6.1.2"]
+        swift: ["6.1.2", "6.3.1"]
         config: ["debug", "release"]
     steps:
       - uses: compnerd/gha-setup-swift@main
@@ -14,7 +14,7 @@ jobs:
           branch: swift-${{ matrix.swift }}-release
           tag: ${{ matrix.swift }}-RELEASE
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Swift Version
         run: swift --version
       - name: Build

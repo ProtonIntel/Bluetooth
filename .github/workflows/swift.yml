@@ -11,26 +11,26 @@ jobs:
         options: ["", "SWIFT_BUILD_DYNAMIC_LIBRARY=1"]
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
     - name: Swift Version
       run: swift --version
     - name: Build
       run: ${{ matrix.options }} swift build -c ${{ matrix.config }}
     - name: Test
       run: ${{ matrix.options }} swift test -c ${{ matrix.config }}
-  
+
   linux:
     name: Linux
     strategy:
       matrix:
-        container: ["swift:6.0.3", "swift:6.1.2", "swift:6.2.3", "swiftlang/swift:nightly"]
+        container: ["swift:6.0.3", "swift:6.1.2", "swift:6.2.3", "swift:6.3.1", "swiftlang/swift:nightly"]
         config: ["debug", "release"]
         options: ["", "SWIFT_BUILD_DYNAMIC_LIBRARY=1"]
     runs-on: ubuntu-latest
     container: ${{ matrix.container }}-jammy
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
     - name: Swift Version
       run: swift --version
     - name: Build
@@ -43,12 +43,12 @@ jobs:
       strategy:
         fail-fast: false
         matrix:
-          swift: ['6.1', '6.2.3']
+          swift: ['6.1', '6.2.3', '6.3.1']
           arch: ["aarch64", "x86_64"]
       runs-on: macos-15
       timeout-minutes: 30
       steps:
-        - uses: actions/checkout@v4
+        - uses: actions/checkout@v5
         - name: "Build Swift Package for Android"
           run: |
               brew install skiptools/skip/skip || (brew update && brew install skiptools/skip/skip)
